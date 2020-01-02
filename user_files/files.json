@@ -2,7 +2,19 @@
     "users": [
         {
             "id": "cheikh",
-            "password": "passer123"
+            "password": "passer123",
+            "databases": [
+                "tes",
+                "jamais",
+                "huawei"
+            ]
+        },
+        {
+            "id": "create",
+            "password": "database",
+            "databases": [
+                "create"
+            ]
         }
     ]
 }

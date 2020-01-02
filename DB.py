@@ -1,4 +1,5 @@
 import json,os
+from functions import *
 ##Classe base de donnee
 class Database():
     def __init__(self,user,name):
@@ -11,7 +12,7 @@ class Database():
 
     def create_database(self):
         ##Creer un fichier json de la base de donnees
-        f_db = open(os.getcwd()+"/db_files/"+self.name+".json", "w")
+        f_db = open(db_files_path+self.name+".json", "w")
         format_db = {
                     "user_id":self.user.id,
                     "nom":self.name,
@@ -19,29 +20,40 @@ class Database():
             }
         f_db.write(json.dumps(format_db,indent=4))
         f_db.close()
-        self.create_user()
+        self.user.create_user(self.name)
 
-    def create_user(self):
-        ##Creer un fichier json de l'utilisateur de la base de donnees
-        f_user = open(os.getcwd()+"/user_files/files.json","r+")
-        users = json.load(f_user).get("users")
-        new_user = {
-                "id":self.user.id,
-                "password":self.user.password
-        }
-        users.append(new_user)
-        format_db = {
-            "users":users
-        }
-        f_user.close()
-        f_user = open(os.getcwd()+"/user_files/files.json","w")
-        f_user.write(json.dumps(format_db,indent=4))
-        f_user.close()
 ##Classe utilisatur
 class User():
     def __init__(self,id,password):
         self.id = id
         self.password = password
+        self.databases = []
+
+    def create_user(self,db_name):
+        f_user = open(user_files_path,"r+")
+        users = json.load(f_user).get("users")
+        f_user.close()
+        if not exist_user(self.id):
+            ##Creer un fichier json de l'utilisateur de la base de donnees
+            new_user = {
+                    "id":self.id,
+                    "password":self.password,
+                    "databases":[db_name]
+            }
+            users.append(new_user)
+        else:
+            for user in users:
+                if (user["id"] == self.id) and (user["password"] == self.password):
+                    user["databases"].append(db_name)
+                    break
+        format_db = {
+                "users":users
+            }
+        f_user = open(user_files_path,"w")
+        f_user.write(json.dumps(format_db,indent=4))
+        f_user.close()
+
+
 ##Classe table     
 class Table():
     def __init__(self,nom):
