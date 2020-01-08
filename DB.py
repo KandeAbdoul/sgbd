@@ -62,10 +62,18 @@ class Table():
 
     def add_attribut(self,champ):
         self.champs.append(champ)
+    def create_table(self):
+        pass
 ##Classe champs
 class Champ():
     def __init__(self,nom,type,cle):
         self.nom = nom
         self.type = type
         self.cle = cle
+    def create_champ(self):
+        return {
+            "nom":self.nom,
+            "type":self.type,
+            "cle":self.cle
+        }
 
