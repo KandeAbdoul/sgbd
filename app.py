@@ -1,17 +1,33 @@
 import sqlparse,json,os,sys
 """ from DB import * """
 from functions import *
-exit = True;
-username = input(">>user: ")
-password = input(">>password: ")
-user = User(username,password)
-print(check_auth(user))
+
+exit = False;
+tentative = 0
+while True:
+    username = input(">>user: ")
+    password = input(">>password: ")
+    user = User(username,password)
+    if check_auth(user):
+        print("Authentication success..")
+        break
+    tentative = tentative + 1
+    if tentative == 3:
+        print("Authentication failed..")
+        exit = True
+        break
 
 """ check_auth(username,password) """
-while exit:
+while not exit:
+    ##Message d'accueil
+    showcase()
     sqlrequest = get_request();
+    if sqlrequest in ["exit;","exit ;"]:
+        exit = True
+        break
     sqlrequest = sqlrequest.split(";")[0].split()
-    if sqlrequest[0] == 'create' and sqlrequest[1]=='database' and sqlrequest[2] != '':
+
+    if len(sqlrequest) == 3 and sqlrequest[0] == 'create' and sqlrequest[1]=='database' and sqlrequest[2] != '':
         if not exist_db(sqlrequest[2]):
             db = Database(user,sqlrequest[2])
             db.create_database()

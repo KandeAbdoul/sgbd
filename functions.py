@@ -67,6 +67,15 @@ def create_table(command,user,db_name,table_name):
             "tables":db_tables
         },indent=4))
         f.close()
+    
+def showcase():
+    print("\nWelcome to the SGBD monitor.  Commands end with ;.\n"+
+            "Your SGBD connection server is running on port 8888\n "+
+            "Server version: 5.7.28-0ubuntu0.18.04.4 (Ubuntu)\n"+
+            "Copyright (c) 2019, 2020, Oracle and/or its affiliates. \n"+
+            "All rights reserved. Oracle is a registered trademark of Oracle \nCorporation and/or its"+
+            "affiliates. Other names may be trademarks of their respective \nowners."+
+            "Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.\n\n")
 
         
 ##Classe base de donnee
