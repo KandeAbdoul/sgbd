@@ -4,19 +4,19 @@
             "id": "cheikh",
             "password": "passer123",
             "databases": [
-                "tes",
-                "jamais",
-                "huawei",
-                " ",
-                "test",
-                "testi"
+                "db_test"
             ]
         },
         {
-            "id": "create",
-            "password": "database",
+            "id": "kande",
+            "password": "'passer123'",
+            "databases": []
+        },
+        {
+            "id": "fatba",
+            "password": "passer123",
             "databases": [
-                "create"
+                "db_fbs"
             ]
         }
     ]

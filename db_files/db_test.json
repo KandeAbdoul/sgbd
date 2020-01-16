@@ -51,6 +51,140 @@
                     "cle": "none"
                 }
             ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                },
+                {
+                    "nom": "prenom",
+                    "type": "varchar",
+                    "cle": "none"
+                },
+                {
+                    "nom": "age",
+                    "type": "int);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": []
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "npm",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar);",
+                    "cle": "none"
+                }
+            ]
         }
     ]
 }

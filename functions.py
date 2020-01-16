@@ -1,4 +1,4 @@
-import os,json,sys
+import os,json,sys,sqlparse
 from DB import Champ
 ##globales path variables
 db_files_path = os.getcwd()+"/db_files/"
@@ -11,6 +11,35 @@ def get_request():
         if ';' in sqlrequest:
             break;  
     return sqlrequest
+
+def show_databases(user):
+    f = open(user_files_path,"r+")
+    users = json.load(f).get('users')
+    f.close()
+    for u in users:
+        if (u["id"] == user.id) and (u["password"] == user.password):
+            print("+---------------+\n| Databases\t|\n+---------------+")
+            for db in u["databases"]:
+                print("|"+db+"\t\t|")
+            print("+---------------+")
+
+def exist_table(dbname,tablename):
+    f = open(db_files_path+dbname+".json","r+")
+    db_tables = json.load(f).get("tables");
+    f.close()
+    for table in db_tables:
+        if tablename == table["nom"]:
+            return True
+    return False
+
+def is_db_owner(user,db_name):
+    f = open(user_files_path,"r+")
+    users = json.load(f).get('users')
+    f.close()
+    for use in users:
+        if use["id"] == user.id and use["password"] == user.password and db_name in use["databases"]:
+            return True
+    return False
 
 def exist_db(db):
     dbs = os.listdir(db_files_path);
@@ -37,36 +66,42 @@ def check_auth(user):
     return False
 
 def create_table(command,user,db_name,table_name):
-    f = open(db_files_path+db_name+".json","r+")
-    db_tables = json.load(f).get("tables");
-    db_champs = []
-    print (db_tables)
-    f.close()
-    champs = command.split("(")[1].split(",")
-    for champ in champs:
-        key = ["none","primary","foreign"]
-        key_t = "none"
-        if (len(champ.split()) == 3) :
-            if champ.split()[2] == ");":
-                break
-            elif champ.split()[2] in key:
-                key_t = champ.split()[2]
-            else:
-                print("Erreur synthaxique,revoyer la documentation sur la creation de table")
-                break
-        attribut = Champ(champ.split()[0],champ.split()[1],key_t)
-        db_champs.append(attribut.create_champ())
-    db_tables.append({
-        "nom":table_name,
-        "champs":db_champs
-    })
-    with open(db_files_path+"/"+db_name+".json","w") as f:
-        f.write(json.dumps({
-            "user_id":user.id,
-            "nom":db_name,
-            "tables":db_tables
-        },indent=4))
+    if not exist_table(db_name,table_name):
+        f = open(db_files_path+db_name+".json","r+")
+        db_tables = json.load(f).get("tables");
         f.close()
+        db_champs = []
+        print(sqlparse.split(command))
+        sys.exit(0)
+
+        champs = command.split("(")[1].split(",")
+        for champ in champs:
+            key = ["none","primary","foreign"]
+            key_t = "none"
+            if (len(champ.split()) == 3) :
+                if champ.split()[2] == ");":
+                    break
+                elif champ.split()[2] in key:
+                    key_t = champ.split()[2]
+                else:
+                    print("Erreur synthaxique,revoyer la documentation sur la creation de table")
+                    break
+            attribut = Champ(champ.split()[0],champ.split()[1],key_t)
+            db_champs.append(attribut.create_champ())
+        db_tables.append({
+            "nom":table_name,
+            "champs":db_champs
+        })
+        with open(db_files_path+"/"+db_name+".json","w") as f:
+            f.write(json.dumps({
+                "user_id":user.id,
+                "nom":db_name,
+                "tables":db_tables
+            },indent=4))
+            f.close()
+        print("Table "+table_name+"created...")
+    else:
+        print("La table "+table_name+" existe deja dans "+db_name)
     
 def showcase():
     print("\nWelcome to the SGBD monitor.  Commands end with ;.\n"+
@@ -116,7 +151,7 @@ class User():
             new_user = {
                     "id":self.id,
                     "password":self.password,
-                    "databases":[db_name]
+                    "databases":[]
             }
             users.append(new_user)
         else:
