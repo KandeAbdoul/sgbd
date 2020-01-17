@@ -19,6 +19,9 @@
 
 
     <style>
+    a{
+      text-decoration:none;
+    }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -42,8 +45,15 @@
         <div class="row">
             {% include 'includes/sideBar.html' %}
         </div>
-        {% block body%} {% endblock %}
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          {% block body %}
+          {% endblock %}
+          <input type="hidden" id="db_name" value="{{databases}}">
+        </main>
+        
     </div>
+
+    
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="{{ url_for('static',filename='docs/4.4/assets/js/vendor/jquery.slim.min.js')}}"><\/script>')</script><script src="{{ url_for('static',filename='/docs/4.4/dist/js/bootstrap.bundle.min.js') }}" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
