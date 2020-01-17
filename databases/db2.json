@@ -1,0 +1,66 @@
+{
+    "user_id": "cheikh",
+    "nom": "db_test",
+    "tables": [
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                },
+                {
+                    "nom": "prenom",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "admin",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "ter",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "produit",
+            "champs": [
+                {
+                    "nom": "idproduit",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nomproduit",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        }
+    ]
+}
