@@ -4,7 +4,9 @@
             "id": "cheikh",
             "password": "passer123",
             "databases": [
-                "db_test"
+                "db_test",
+                "json_test",
+                "json_file"
             ]
         },
         {
@@ -18,6 +20,11 @@
             "databases": [
                 "db_fbs"
             ]
+        },
+        {
+            "id": "gass",
+            "password": "passer123",
+            "databases": []
         }
     ]
 }

@@ -18,10 +18,19 @@ def show_databases(user):
     f.close()
     for u in users:
         if (u["id"] == user.id) and (u["password"] == user.password):
-            print("+---------------+\n| Databases\t|\n+---------------+")
+            print("+-----------------------+\n|\t Databases\t|\n+-----------------------+")
             for db in u["databases"]:
                 print("|"+db+"\t\t|")
-            print("+---------------+")
+            print("+-----------------------+")
+
+def show_tables(db_name):
+    f = open(db_files_path+db_name+".json","r+")
+    tables = json.load(f).get('tables')
+    f.close()
+    print("+-----------------------+\n|\t Tables\t\t|\n+-----------------------+")
+    for table in tables:
+        print("|"+table["nom"]+"\t\t|")
+    print("+-----------------------+")
 
 def exist_table(dbname,tablename):
     f = open(db_files_path+dbname+".json","r+")
@@ -71,16 +80,13 @@ def create_table(command,user,db_name,table_name):
         db_tables = json.load(f).get("tables");
         f.close()
         db_champs = []
-        print(sqlparse.split(command))
-        sys.exit(0)
-
         champs = command.split("(")[1].split(",")
         for champ in champs:
             key = ["none","primary","foreign"]
             key_t = "none"
             if (len(champ.split()) == 3) :
                 if champ.split()[2] == ");":
-                    break
+                    pass
                 elif champ.split()[2] in key:
                     key_t = champ.split()[2]
                 else:
@@ -99,7 +105,7 @@ def create_table(command,user,db_name,table_name):
                 "tables":db_tables
             },indent=4))
             f.close()
-        print("Table "+table_name+"created...")
+        print("Table "+table_name+" created...")
     else:
         print("La table "+table_name+" existe deja dans "+db_name)
     
