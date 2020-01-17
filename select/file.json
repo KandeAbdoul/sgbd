@@ -1,0 +1,30 @@
+{
+    "table1":[
+        {
+        "nom": "kande",
+        "prenom": "abdoul"
+        },
+        {
+            "nom": "mbacke",
+            "prenom": "cheikh"
+        },
+        {
+            "nom": "sow",
+            "prenom": "fatba"
+        }
+    ],
+    "table2":[
+        {
+            "produit": "lait",
+            "prix": 2500
+        },
+        {
+            "produit": "BEURRE",
+            "prix": 1450
+        },
+        {
+            "produit": "cafe",
+            "prix": 1000
+        }
+    ]
+}
