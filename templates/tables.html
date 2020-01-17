@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <h2 class="Well">Tables</h2>
+    <div class="table-responsive">
+        {% for table in tables %}
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>Table: </tr>
+            <tr>
+              <th>Nom</th>
+              <th>Type</th>
+              <th>Cle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>{{ table["nom"]}}</tr>
+            {% for champ in table["champs"] %}
+            <tr>
+              <td>{{ champ["nom"]}}</td>
+              <td>{{ champ["type"]}}</td>
+              <td>{{ champ["cle"]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endfor %}
+    </div>
+{% endblock  %}
