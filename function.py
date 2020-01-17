@@ -32,11 +32,19 @@ def convert(f):
     champ = []
     files = {}
 
-    for table in data['tables']:
+    defaultvalue = 0
+    i =0
+    for table in data['tables'] :
+        tmp  = {}
         files.update({table['nom']:[]})
-        champ.append(table['champs'][0])
-    i= 0
-    for row in files:
-        files[row].append(champ[i])
+        for t in table['champs']:
+            print(t['nom'])
+            if t['type'] == 'int':
+                defaultvalue = 0
+            elif t['type'] == 'varchar': defaultvalue = 'null'
+            tmp.update({t['nom']:defaultvalue})
+        champ.append(tmp)
         i=i+1
+        files.update({table['nom']:champ})
+        champ = []
     return files
