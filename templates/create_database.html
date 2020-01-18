@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <h2>Ajouter une base de donnees</h2>
+    <form action="/create_database" method = "POST">
+        <div class="form-group col-md-6">
+            <input type="text" placeholder="Entrer le nom de la base de donnés" name="db_name" class="form-control mb-4 mt-4" id="inputEmail4">
+            <button type="submit" class="btn btn-sm btn-secondary">Ajouter</button>
+        </div>
+        {% if msg_error %}
+            <div class="alert alert-danger">{{msg_error}}</div>
+        {% endif %}
+    <form>
+{% endblock  %}
