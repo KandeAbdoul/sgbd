@@ -1,0 +1,21 @@
+{
+    "user_id": "cheikh",
+    "nom": "db_1",
+    "tables": [
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        }
+    ]
+}

@@ -1,5 +1,56 @@
 {
     "user_id": "cheikh",
     "nom": "json_test",
-    "tables": []
+    "tables": [
+        {
+            "nom": "admins",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                },
+                {
+                    "nom": "prenom",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "article",
+            "champs": [
+                {
+                    "nom": "idart",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nomArt",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        },
+        {
+            "nom": "personne",
+            "champs": [
+                {
+                    "nom": "id",
+                    "type": "int",
+                    "cle": "primary"
+                },
+                {
+                    "nom": "nom",
+                    "type": "varchar",
+                    "cle": "none"
+                }
+            ]
+        }
+    ]
 }
