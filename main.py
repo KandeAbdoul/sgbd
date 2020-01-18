@@ -35,6 +35,33 @@ def databases():
         print(session['db'])
     return render_template("databases.html",databases = session['db']);
 
+@app.route('/create_database',methods = ['GET','POST'])
+def create_database():
+    if request.method == 'POST':
+        user = User(session['id'],session['pwd'])
+        db_name = request.form["db_name"]
+        print(db_name)
+        if not exist_db(db_name):
+            db = Database(user,db_name)
+            db.create_database()
+            return render_template("databases.html",msg_success = "Database "+db_name+" created..")
+        else:
+            return render_template("create_database.html",msg_error = "La base de donnees "+db_name+" existe deja")
+    return render_template("create_database.html")
+
+@app.route('/create_tables',methods = ['GET','POST'])
+def create_tables():
+    if request.method == "POST":
+        user = User(session['id'],session['pwd'])
+        db = request.form["db_name"] 
+        table = request.form["table_name"]
+        requests = request.form["request"] 
+        message = create_table(requests,user,db,table);
+        return render_template("create_table.html",msg = message)
+    if 'db' in session:
+        return render_template("create_table.html", databases = session['db'])
+    return render_template("create_table.html")
+
 @app.route('/auth',methods = ['GET','POST'])
 def auth():
     if request.method == 'POST':
@@ -46,6 +73,7 @@ def auth():
             users = json.load(f).get('users');
             f.close()
             dbs = [use["databases"] for use in users if ((user.id == use["id"]) and (user.password == use["password"])) ]
+            print(dbs)
             session['db'] = dbs[0]
             return redirect('/')
         else:

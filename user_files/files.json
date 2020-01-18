@@ -6,7 +6,12 @@
             "databases": [
                 "db_test",
                 "json_test",
-                "json_file"
+                "json_file",
+                "greeting",
+                "db",
+                "db_1",
+                "db_2",
+                "db_3"
             ]
         },
         {

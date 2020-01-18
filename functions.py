@@ -3,7 +3,56 @@ from DB import Champ
 ##globales path variables
 db_files_path = os.getcwd()+"/db_files/"
 user_files_path = os.getcwd()+"/user_files/files.json"
+#####################################################################################
+def insert(db, table, columns, values):
+    with open(db) as database:
+        database = json.load(database)
+        if len(columns) == 0: 
+            for row in database[table]:
+                for line in row:
+                    columns.append(line)
+        for col, val in zip(columns, values):
+            if "'" not in val:
+                try:
+                    val = int(str(val))
+                except ValueError :
+                    print("Erreur de eeeeee")
+                    print("Le type du champ " + col + " ne correspond pas à la valeur que vous voulez inserer")
+                    return False
+            elif "'" in val: 
+                val = val[1:-1]
+            i = 0
+            for row in database[table]:
+                for line in row:
+                    if line == col:
+                        database[table][i][line] = val
+                i=i+1
+        with open(db, 'w') as json_file:
+            json.dump(database, json_file, indent=4)
+        return True    
+    
+def convert(f):
+    data = json.load(open(f, 'r'))
+    champ = []
+    files = {}
 
+    defaultvalue = 0
+    i =0
+    for table in data['tables'] :
+        tmp  = {}
+        files.update({table['nom']:[]})
+        for t in table['champs']:
+            if t['type'] == 'int':
+                defaultvalue = 0
+            elif t['type'] == 'varchar': defaultvalue = 'null'
+            tmp.update({t['nom']:defaultvalue})
+        champ.append(tmp)
+        i=i+1
+        files.update({table['nom']:champ})
+        champ = []
+    return files
+
+########################################################################################
 def get_request():
     sqlrequest = ""
     while True:
@@ -76,12 +125,14 @@ def check_auth(user):
 
 def create_table(command,user,db_name,table_name):
     if not exist_table(db_name,table_name):
+        msg = ""
         f = open(db_files_path+db_name+".json","r+")
         db_tables = json.load(f).get("tables");
         f.close()
         db_champs = []
         champs = command.split("(")[1].split(",")
         for champ in champs:
+            print(champ)   
             key = ["none","primary","foreign"]
             key_t = "none"
             if (len(champ.split()) == 3) :
@@ -90,9 +141,12 @@ def create_table(command,user,db_name,table_name):
                 elif champ.split()[2] in key:
                     key_t = champ.split()[2]
                 else:
-                    print("Erreur synthaxique,revoyer la documentation sur la creation de table")
+                    msg="Erreur synthaxique,revoyer la documentation sur la creation de table"
                     break
-            attribut = Champ(champ.split()[0],champ.split()[1],key_t)
+            if ");" in champ:
+                attribut = Champ(champ.split()[0],champ.split()[1].split(")")[0],key_t)
+            else:    
+                attribut = Champ(champ.split()[0],champ.split()[1],key_t)
             db_champs.append(attribut.create_champ())
         db_tables.append({
             "nom":table_name,
@@ -105,9 +159,10 @@ def create_table(command,user,db_name,table_name):
                 "tables":db_tables
             },indent=4))
             f.close()
-        print("Table "+table_name+" created...")
+        msg = "Table "+table_name+" created..."
     else:
-        print("La table "+table_name+" existe deja dans "+db_name)
+        msg = "La table "+table_name+" existe deja dans "+db_name
+    return msg
     
 def showcase():
     print("\nWelcome to the SGBD monitor.  Commands end with ;.\n"+
