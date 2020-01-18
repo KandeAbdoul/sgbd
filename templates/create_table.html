@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <h2>Ajouter une nouvelle table</h2>
+    <form action="/create_tables" method ="POST">
+        <div class="form-group col-md-6">
+            <div class="dropdown mb-7">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <select class="dropdown-menu"  name="db_name" aria-labelledby="dropdownMenuButton">
+                {% for database in databases %}
+                    <option class="dropdown-item" value="{{database}}">{{database}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <input type="text" placeholder="Entrer le nom de la nouvelle table" name="table_name" class="form-control mb-4 mt-4" id="inputEmail4">
+            <div class="mb-3 my-7">
+                <textarea class="form-control" id="validationTextarea" name="request" placeholder="Entrer la requete pour creer la table" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-sm btn-secondary">Ajouter</button>
+        </div>
+        {% if msg %}
+            <div class="alert alert-info">{{msg}}</div>
+        {% endif %}
+    <form>
+{% endblock  %}
